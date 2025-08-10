@@ -1,113 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Mock Slot</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    :root{
-      --bg:#0f1016; --panel:#171a28; --text:#f2f4ff; --muted:#9aa0b5; --ok:#15e1a7; --warn:#ffb84d;
-    }
-    *{box-sizing:border-box} html,body{height:100%;margin:0}
-    body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    .shell{display:flex;flex-direction:column;height:100%}
-    .top{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:linear-gradient(180deg,#1b1e2d,#171a28);border-bottom:1px solid rgba(255,255,255,.08)}
-    .pill{background:#1e2234;border:1px solid rgba(255,255,255,.08);border-radius:10px;color:#fff;padding:6px 10px}
-    .stage{flex:1;display:flex;align-items:center;justify-content:center;background:
-      radial-gradient(900px 600px at 80% -10%, rgba(143,91,255,.18), transparent 50%),
-      radial-gradient(900px 600px at 10% 120%, rgba(21,225,167,.12), transparent 50%),
-      #0f1016}
-    .cabinet{width:min(920px,96%);aspect-ratio:16/9;background:#111427;border-radius:20px;border:1px solid rgba(255,255,255,.08);
-      box-shadow:0 10px 40px rgba(0,0,0,.55) inset, 0 0 0 1px rgba(255,255,255,.04)}
-    .cab-top{display:flex;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.06)}
-    .meta{color:var(--muted)}
-    .reels{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:12px;height:calc(100% - 120px)}
-    .sym{border-radius:12px;background:#191d31;border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-weight:700}
-    .controls{display:flex;gap:8px;padding:10px 12px;border-top:1px solid rgba(255,255,255,.06)}
-    .btn{padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:#1f2336;color:#fff;cursor:pointer}
-    .btn.primary{background:#2a2f4a}
-    .light{color:var(--warn)}
-  </style>
+  <meta charset="UTF-8" />
+  <title>ClubSocial – Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="shell">
-    <div class="top">
-      <div id="title">Mock Game</div>
-      <div>
-        <span class="pill" id="providerPill">Provider</span>
-        <span class="pill" id="modePill">Real</span>
-        <span class="pill">Balance: <strong id="bal">50.00 GC</strong></span>
+  <header class="topbar">
+    <div class="logo">ClubSocial</div>
+    <nav>
+      <a href="casino.html">Casino</a>
+      <a href="poker.html">Poker</a>
+      <a href="crash.html">Crash</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to ClubSocial</h1>
+      <p>Play poker, crash, and the hottest slots all in one place.</p>
+      <div class="cta-buttons">
+        <a href="poker.html" class="btn">Play Poker</a>
+        <a href="casino.html" class="btn">Play Slots</a>
+        <a href="crash.html" class="btn">Play Crash</a>
       </div>
     </div>
+  </section>
 
-    <div class="stage">
-      <div class="cabinet">
-        <div class="cab-top">
-          <div class="meta">RTP ~ <span class="light">96%</span></div>
-          <div class="meta">Volatility: High</div>
-        </div>
-        <div class="reels" id="reels"></div>
-        <div class="controls">
-          <button class="btn" id="betDown">–</button>
-          <span class="pill">Bet: <strong id="bet">1.00</strong></span>
-          <button class="btn" id="betUp">+</button>
-          <button class="btn primary" id="spin">SPIN</button>
-          <span class="pill">Win: <strong id="win">0.00</strong></span>
-        </div>
+  <section class="featured">
+    <h2>Featured Games</h2>
+    <div class="game-grid">
+      <div class="game-card">
+        <img src="assets/hero/poker.jpg" alt="Poker" />
+        <h3>Poker</h3>
+      </div>
+      <div class="game-card">
+        <img src="assets/hero/casino.jpg" alt="Slots" />
+        <h3>Slots</h3>
+      </div>
+      <div class="game-card">
+        <img src="assets/hero/crash.jpg" alt="Crash" />
+        <h3>Crash</h3>
       </div>
     </div>
-  </div>
+  </section>
 
-  <script>
-    // Read query for nice labels
-    const qs = new URLSearchParams(location.search);
-    const title = qs.get("title") || "Mock Game";
-    const provider = qs.get("provider") || "Provider";
-    const mode = (qs.get("mode") || "real").toLowerCase();
-
-    document.getElementById("title").textContent = title;
-    document.getElementById("providerPill").textContent = provider;
-    document.getElementById("modePill").textContent = mode === "demo" ? "Demo" : "Real";
-
-    // Simple mock reels
-    const reels = document.getElementById("reels");
-    const symbols = ["🍒","💎","🔔","⭐","7","🍋","🍀","🔥"];
-    function draw(){
-      reels.innerHTML = "";
-      for (let i=0;i<15;i++){
-        const d=document.createElement("div");
-        d.className="sym";
-        d.textContent=symbols[Math.floor(Math.random()*symbols.length)];
-        reels.appendChild(d);
-      }
-    }
-    draw();
-
-    // Fake spin
-    const balEl = document.getElementById("bal");
-    const winEl = document.getElementById("win");
-    const betEl = document.getElementById("bet");
-    let bal = 50.00, bet = 1.00;
-
-    function updateHud(){ balEl.textContent = `${bal.toFixed(2)} GC`; betEl.textContent = bet.toFixed(2); }
-    updateHud();
-
-    document.getElementById("betUp").onclick = ()=>{ bet = Math.min(10, bet+0.5); updateHud(); };
-    document.getElementById("betDown").onclick = ()=>{ bet = Math.max(0.5, bet-0.5); updateHud(); };
-
-    document.getElementById("spin").onclick = ()=>{
-      if (bal < bet) return;
-      bal -= bet;
-      draw();
-      // 25% chance to win 1x–5x
-      let win = Math.random() < 0.25 ? bet * (1 + Math.floor(Math.random()*5)) : 0;
-      bal += win;
-      winEl.textContent = win.toFixed(2);
-      updateHud();
-
-      // Post a message up (example for integration)
-      parent.postMessage({ type:"spin_result", win, bet, bal }, "*");
-    };
-  </script>
+  <footer class="footer">
+    <p>© 2025 ClubSocial. All rights reserved.</p>
+  </footer>
 </body>
 </html>
