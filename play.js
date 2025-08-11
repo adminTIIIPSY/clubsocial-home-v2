@@ -32,18 +32,19 @@ const NAME_GUESS = gameId
 
 // Provider adapters (Phase 1: all route to our local mock)
 const adapterMap = {
-  "Pragmatic": ({ game, mode }) => `/mock/index.html?title=${encodeURIComponent(NAME_GUESS)}&provider=Pragmatic&mode=${mode}`,
-  "Hacksaw":   ({ game, mode }) => `/mock/index.html?title=${encodeURIComponent(NAME_GUESS)}&provider=Hacksaw&mode=${mode}`,
-  "3 Oaks":    ({ game, mode }) => `/mock/index.html?title=${encodeURIComponent(NAME_GUESS)}&provider=3%20Oaks&mode=${mode}`,
-  "BGaming":   ({ game, mode }) => `/mock/index.html?title=${encodeURIComponent(NAME_GUESS)}&provider=BGaming&mode=${mode}`,
-  "Relax":     ({ game, mode }) => `/mock/index.html?title=${encodeURIComponent(NAME_GUESS)}&provider=Relax&mode=${mode}`
+  "Pragmatic": ({ game, mode }) => `/play-placeholder.html?title=${encodeURIComponent(NAME_GUESS)}&provider=Pragmatic&mode=${mode}`,
+  "Hacksaw":   ({ game, mode }) => `/play-placeholder.html?title=${encodeURIComponent(NAME_GUESS)}&provider=Hacksaw&mode=${mode}`,
+  "3 Oaks":    ({ game, mode }) => `/play-placeholder.html?title=${encodeURIComponent(NAME_GUESS)}&provider=3%20Oaks&mode=${mode}`,
+  "BGaming":   ({ game, mode }) => `/play-placeholder.html?title=${encodeURIComponent(NAME_GUESS)}&provider=BGaming&mode=${mode}`,
+  "Relax":     ({ game, mode }) => `/play-placeholder.html?title=${encodeURIComponent(NAME_GUESS)}&provider=Relax&mode=${mode}`,
 };
 
 // Default adapter if provider key missing
 function getLaunchUrl({ provider, game, mode }) {
   const fn = adapterMap[provider];
-  if (fn) return fn({ game, mode });
-  return `/mock/index.html?title=${encodeURIComponent(NAME_GUESS)}&provider=${encodeURIComponent(provider)}&mode=${mode}`;
+  return fn
+    ? fn({ game, mode })
+    : `/play-placeholder.html?title=${encodeURIComponent(NAME_GUESS)}&provider=${encodeURIComponent(provider)}&mode=${mode}`;
 }
 
 // Render header crumbs/meta
