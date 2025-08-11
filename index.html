@@ -2,52 +2,153 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>ClubSocial – Home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles.css" />
+  <title>TerpzyVerse / ClubSocial – Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="styles.css" rel="stylesheet" />
 </head>
 <body>
+  <!-- Top Bar -->
+   .visually-hidden{
+  position:absolute !important;
+  width:1px;height:1px;
+  padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);
+  white-space:nowrap;border:0;
+}
+
   <header class="topbar">
-    <div class="logo">ClubSocial</div>
-    <nav>
-      <a href="casino.html">Casino</a>
-      <a href="poker.html">Poker</a>
-      <a href="crash.html">Crash</a>
+    <div class="brand">ClubSocial</div>
+    <div class="balance">
+      <span id="activeBalanceAmount">50.00</span>
+      <button id="balanceDropdown" class="dropdown-btn">GC ▾</button>
+      <ul id="balanceMenu" class="dropdown-menu">
+        <li data-currency="GC">GoldCoin (GC)</li>
+        <li data-currency="SC">SweepsCoin (SC)</li>
+        <li data-currency="TRPZ">$TRPZ</li>
+      </ul>
+    </div>
+    <nav class="top-actions">
+      <button id="storeBtn" class="pill">Store</button>
+      <button id="promosBtn" class="pill">Promos</button>
+      <div class="avatar" aria-label="Profile"></div>
     </nav>
   </header>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Welcome to ClubSocial</h1>
-      <p>Play poker, crash, and the hottest slots all in one place.</p>
-      <div class="cta-buttons">
-        <a href="poker.html" class="btn">Play Poker</a>
-        <a href="casino.html" class="btn">Play Slots</a>
-        <a href="crash.html" class="btn">Play Crash</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="featured">
-    <h2>Featured Games</h2>
-    <div class="game-grid">
-      <div class="game-card">
+  <main class="page">
+    <!-- Hero -->
+    <section class="hero">
+      <a class="hero-card" href="casino.html" data-route="casino">
+        <img src="assets/hero/casino.jpg" alt="Casino" />
+        <span>CASINO</span>
+      </a>
+      <a class="hero-card" href="poker.html" data-route="poker">
         <img src="assets/hero/poker.jpg" alt="Poker" />
-        <h3>Poker</h3>
-      </div>
-      <div class="game-card">
-        <img src="assets/hero/casino.jpg" alt="Slots" />
-        <h3>Slots</h3>
-      </div>
-      <div class="game-card">
+        <span>POKER</span>
+      </a>
+      <a class="hero-card" href="crash.html" data-route="crash">
         <img src="assets/hero/crash.jpg" alt="Crash" />
-        <h3>Crash</h3>
-      </div>
-    </div>
-  </section>
+        <span>CRASH</span>
+      </a>
+    </section>
 
-  <footer class="footer">
-    <p>© 2025 ClubSocial. All rights reserved.</p>
+    <!-- Continue Playing -->
+    <section class="section">
+      <div class="section-head">
+        <h2>Continue Playing</h2>
+        <div class="chips scroll-x" id="continueChips"></div>
+      </div>
+      <div class="cards-row" id="continueRow"></div>
+    </section>
+
+    <!-- Provider Chips -->
+    <section class="section sticky-chips">
+      <div class="section-head">
+        <h2>Browse Slots</h2>
+        <div class="chips scroll-x" id="providerChips"></div>
+      </div>
+    </section>
+
+    <!-- Featured -->
+    <section class="section">
+      <div class="section-head">
+        <h3>Featured</h3>
+        <div class="row-controls">
+          <button class="nav-btn" data-target="featuredRow" data-dir="left">‹</button>
+          <button class="nav-btn" data-target="featuredRow" data-dir="right">›</button>
+        </div>
+      </div>
+      <div class="cards-row scroll-x" id="featuredRow"></div>
+    </section>
+
+    <!-- Provider Carousels -->
+    <section class="section">
+      <div class="section-head">
+        <h3>Pragmatic Picks</h3>
+        <div class="row-controls">
+          <button class="nav-btn" data-target="rowPragmatic" data-dir="left">‹</button>
+          <button class="nav-btn" data-target="rowPragmatic" data-dir="right">›</button>
+        </div>
+      </div>
+      <div class="cards-row scroll-x" id="rowPragmatic"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h3>Hacksaw Hits</h3>
+        <div class="row-controls">
+          <button class="nav-btn" data-target="rowHacksaw" data-dir="left">‹</button>
+          <button class="nav-btn" data-target="rowHacksaw" data-dir="right">›</button>
+        </div>
+      </div>
+      <div class="cards-row scroll-x" id="rowHacksaw"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h3>3 Oaks New</h3>
+        <div class="row-controls">
+          <button class="nav-btn" data-target="row3Oaks" data-dir="left">‹</button>
+          <button class="nav-btn" data-target="row3Oaks" data-dir="right">›</button>
+        </div>
+      </div>
+      <div class="cards-row scroll-x" id="row3Oaks"></div>
+    </section>
+
+    <!-- All Slots -->
+    <section class="section">
+      <div class="section-head">
+        <h3>All Slots</h3>
+        <div class="filters">
+          <input id="searchInput" placeholder="Search by name…" />
+          <label for="sortSelect" class="visually-hidden">Sort Slots</label>
+          <select id="sortSelect" title="Sort Slots">
+            <option value="popular">Popular</option>
+            <option value="new">New</option>
+            <option value="rtp">RTP</option>
+            <option value="volatility">Volatility</option>
+          </select>
+          <label for="tagSelect" class="visually-hidden">Filter by Tag</label>
+          <select id="tagSelect" title="Filter by Tag">
+            <option value="">All Tags</option>
+            <option>Bonus Buy</option>
+            <option>Megaways</option>
+            <option>Cluster</option>
+            <option>Hold&Spin</option>
+            <option>Jackpot</option>
+          </select>
+        </div>
+      </div>
+      <div id="allGrid" class="grid"></div>
+      <div class="load-more">
+        <button id="loadMore">Load more</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    © <span id="year"></span> TerpzyVerse / ClubSocial · All rights reserved.
   </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
